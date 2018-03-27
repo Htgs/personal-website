@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'blog'),
+    'thumb_height' => 50,
+    'thumb_width' => 50,
 
     /*
     |--------------------------------------------------------------------------

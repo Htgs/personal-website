@@ -36,4 +36,11 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    /**
+     * 自定义认证字段
+     * @return string
+     */
+    public function username() {
+        return 'name';
+    }
 }

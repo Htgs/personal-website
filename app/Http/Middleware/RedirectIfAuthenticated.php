@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\Auth;
 class RedirectIfAuthenticated
 {
     /**
+     * 重定向
+     * redirectTo 方法优先级大于 redirectTo 属性
+     * @return string
+     */
+   // protected function redirectTo()
+   // {
+   //     return '/';
+   // }
+    
+    /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request

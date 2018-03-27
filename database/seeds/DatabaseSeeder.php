@@ -11,6 +11,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        // 添加填充器
+        // php artisan make:seeder UsersTableSeeder
+        // 更新填充器配置
+        // composer dump-autoload
+        // 数据填充
+        // php artisan db:seed
+        // php artisan db:seed --class=UsersTableSeeder
+        // 数据回滚
+        // php artisan migrate:refresh --seed
+
+        // 引用其他填充器
+    	// $this->call(UsersTableSeeder::class);
+    	if (config('app.debug')) {
+        	$this->call(UsersTableSeeder::class);
+        } else {
+        }
     }
 }

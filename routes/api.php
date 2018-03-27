@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// 获取token
+Route::get('/token', 'HomeController@Token');
+
+Route::group(['namespace' => 'Api', 'middleware' => ['auth:api']], function () {
+    Route::resource('/user', 'UsersController');
+    // Route::get('users', function () {
+    //     // Matches The "/admin/users" URL
+    // });
 });
