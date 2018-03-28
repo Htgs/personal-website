@@ -40,7 +40,7 @@ class LoginController extends Controller
      * 自定义认证字段
      * @return string
      */
-    public function username() {
-        return 'name';
-    }
+    // public function username() {
+    //     return 'name';
+    // }
 }
