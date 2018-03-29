@@ -13,9 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-// 获取token
-Route::get('/token', 'HomeController@Token');
-
 Route::group(['namespace' => 'Api', 'middleware' => [/*'auth:api'*/]], function () {
     Route::resource('/user', 'UsersController');
     Route::resource('/article', 'ArticlesController');

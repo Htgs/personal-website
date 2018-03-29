@@ -13,6 +13,12 @@
 
 Route::get('/', 'HomeController@welcome');
 
-Auth::routes();
+// 获取token
+Route::get('/api/token', 'Api\UtilsController@token');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/api/auth', 'AuthController@auth');
+
+//Auth::routes();
+//
+//Route::get('/home', 'HomeController@index')->name('home');
+
