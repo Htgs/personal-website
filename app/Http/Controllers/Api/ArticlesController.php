@@ -39,6 +39,7 @@ class ArticlesController extends Controller
     public function store(Request $request)
     {
         //
+        print_r($requset->all());
     }
 
     /**
@@ -50,6 +51,7 @@ class ArticlesController extends Controller
     public function show($id)
     {
         //
+        return Article::findOrFail($id);
     }
 
     /**
