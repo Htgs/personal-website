@@ -25,14 +25,4 @@ class HomeController extends Controller
     {
         return view('home');
     }
-
-    /**
-     * 返回欢迎页
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function welcome() {
-        return view('welcome');
-    }
-
 }

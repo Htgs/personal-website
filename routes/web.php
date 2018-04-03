@@ -14,11 +14,17 @@
 Route::get('/', 'HomeController@welcome');
 
 // 获取token
-Route::get('/api/token', 'Api\UtilsController@token');
-
-Route::get('/api/auth', 'AuthController@auth');
-
-//Auth::routes();
+//Route::get('/api/token', 'Api\UtilsController@token');
 //
-//Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/api/auth', 'AuthController@auth');
+//
+//Route::post('/login', 'Auth\LoginController@login');
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

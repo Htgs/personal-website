@@ -21,8 +21,6 @@ class AddColumnsToUsersTable extends Migration
             $table->string('realname')->nullable()->comment('真是姓名'); //真是姓名
             $table->tinyInteger('gender')->nullable()->default(0)->comment('性别'); //性别，0为男性，1为女性，默认为0
             $table->string('birth_date', 50)->nullable()->comment('出生日期');  //出生日期
-            $table->dateTime('login_time')->comment('最近登录时间');  //最近登录时间
-            $table->string('ip', 50)->comment('登录的ip地址');  //登录的ip地址
             $table->string('phone', 50)->nullable()->comment('手机号码');  //手机号码
             $table->text('memo')->nullable()->comment('备注');  //备注
             $table->softDeletes();  //deleted_at
@@ -47,8 +45,6 @@ class AddColumnsToUsersTable extends Migration
             $table->dropColumn('deleted_at');
             $table->dropColumn('memo');
             $table->dropColumn('phone');
-            $table->dropColumn('ip');
-            $table->dropColumn('login_time');
             $table->dropColumn('birth_date');
             $table->dropColumn('gender');
             $table->dropColumn('niname');

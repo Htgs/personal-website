@@ -19,8 +19,6 @@ class UsersTableSeeder extends Seeder
             'niname' => 'niko',
             'realname' => '尼克',
             'gender' => 0,
-            'login_time' => date("Y-m-d h:i:s", time()),
-            'ip' =>  '127.0.0.1',
         ]);
     }
 }
