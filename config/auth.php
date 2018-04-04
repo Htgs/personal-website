@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'api',
+        'guard' => 'web',
         'passwords' => 'users',
     ],
 
@@ -42,7 +42,8 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+//            'driver' => 'token',
+            'dirver' => 'passport', // 不是使用token认证，改用passport认证http://laravelacademy.org/post/8909.html
             'provider' => 'users',
         ],
     ],
