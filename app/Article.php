@@ -24,4 +24,8 @@ class Article extends Model
      * @var array
      */
     protected $fillable = ['user_id', 'title', 'is_public', 'content', 'article_date', 'memo'];
+    
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
 }

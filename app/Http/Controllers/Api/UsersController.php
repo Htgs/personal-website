@@ -15,9 +15,15 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return User::paginate(10);
+//        return $request->path(); // api/user
+//        return $request->url(); // http://www.hblog.com/api/user
+//        return $request->fullUrl(); // http://www.hblog.com/api/user?niname=22&page=1&pageSize=10
+//        return $request->input('niname'); // 22
+//        return $request->input('name', 'adb'); // 如果请求中有name这个字段对应的值，就显示请求中的值，否则显示默认值adb
+//        return $request->query('niname');
     }
 
     /**
