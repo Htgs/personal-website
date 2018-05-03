@@ -18,7 +18,7 @@ class AddColumnsToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('niname', 50)->default('user')->comment('昵称');  //昵称
             $table->string('avatar', 200)->nullable()->comment('头像');  //头像
-            $table->string('realname')->nullable()->comment('真是姓名'); //真是姓名
+            $table->string('realname')->nullable()->comment('真实姓名'); //真实姓名
             $table->tinyInteger('gender')->default(0)->comment('性别'); //性别，0为男性，1为女性，默认为0
             $table->string('birth_date', 50)->nullable()->comment('出生日期');  //出生日期
             $table->string('phone', 50)->nullable()->comment('手机号码');  //手机号码

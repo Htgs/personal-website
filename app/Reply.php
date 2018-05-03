@@ -3,20 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reply extends Model
 {
     // 创建模型
     // php artisan make:model Reply
-
-//    $prefix = config('database.default-prefix');
-
+    use SoftDeletes;
     /**
-     * 关联到模型的数据表
+     * 应该被调整为日期的属性
      *
-     * @var string
+     * @var array
      */
-//    protected $table = $prefix.'replies';
+    protected $dates = ['deleted_at'];
 
     /**
      * 可以被批量赋值的属性.
@@ -24,4 +23,12 @@ class Reply extends Model
      * @var array
      */
     protected $fillable = ['user_id', 'comment_id', 'content', 'reply_date', 'memo'];
+    
+    public function user() {
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
+    
+    public function comment() {
+        return $this->belongsTo('App\Comment', 'comment_id', 'id');
+    }
 }
