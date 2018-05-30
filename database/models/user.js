@@ -73,7 +73,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: '备注长度最多为200字符',
         },
       },
-    }
+    },
   }, {
     timestamps: true,
     paranoid: true, // 软删除
