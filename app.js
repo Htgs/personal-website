@@ -1,46 +1,42 @@
 const http = require('http');
+const fs = require('fs');
+
+// 配置引用
+const config = require('./config/config.js');
 
 // 第三方引用
 const Koa = require('koa');
 // const helmet = require('koa-helmet');
-// const router = require('koa-router');
+const logger = require('koa-logger');
+const jwt = require('koa-jwt');
+const koaBody = require('koa-body');
+
+// 本地引用
+const webRoutes = require('./routes/web');
+const apiRoutes = require('./routes/api');
 
 const app = new Koa();
 
+if (!fs.existsSync(config.uploadsPath)) { // 判断上传文件夹是否存在，不存在则自动添加
+	fs.mkdirSync(config.uploadsPath);
+}
+
 // app.use(helmet());
+app.use(logger());
+app.use(koaBody({
+    formidable: {
+        uploadDir: config.uploadsPath,
+        keepExtensions: true,
+    },
+}));
 
-// x-response-time
+webRoutes(app);
 
-app.use(async (ctx, next) => {
-    const start = Date.now();
-    await next();
-    const ms = Date.now() - start;
-    ctx.set('X-Response-Time', `${ms}ms`);
-});
+app.use(jwt({ secret: config.jwtSecret }));
 
-// logger
-
-app.use(async (ctx, next) => {
-    const start = Date.now();
-    await next();
-    const ms = Date.now() - start;
-    console.log(`${ctx.method} ${ctx.url} - ${ms}`);
-});
-
-// response
-
-app.use(async ctx => {
-    ctx.body = 'Hello World';
-    ctx; // 这是 Context
-    ctx.req; // 这是 node Request
-    ctx.request; // 这是 koa Request
-    ctx.res; // 这是 node Response
-    ctx.response; // 这是 koa Response
-});
-
-app.on('error', (err, ctx) => {
-    log.error('server error', err, ctx);
-});
+apiRoutes(app);
 
 // app.listen(3000);
-http.createServer(app.callback()).listen(3000);
+let port = config.port || 3000;
+http.createServer(app.callback()).listen(port);
+console.log(`http server start in http://localhost:${port}`);

@@ -10,9 +10,9 @@ module.exports = {
     timezone: '+08:00' //东八时区
   },
   test: {
-    username: 'database_test',
-    password: null,
-    database: 'database_test',
+    username: 'root',
+    password: 'root',
+    database: 'blog',
     host: '127.0.0.1',
     dialect: 'mysql',
     timezone: '+08:00' //东八时区

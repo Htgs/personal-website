@@ -1,8 +1,15 @@
 'use strict';
-function now() {
-  let date = new Date();
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+const crypto = require('crypto');
+function getHash(password) {
+  let hash = crypto.createHash('md5')
+    .update(password)
+    .digest('hex');
+  return hash
 }
+// function now() {
+//   let date = new Date();
+//   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+// }
 module.exports = {
   up: (queryInterface, Sequelize) => {
     /*
@@ -15,15 +22,16 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
+    let now = new Date();
     return queryInterface.bulkInsert('users', [{
       name: 'admin',
       email: 'admin@qq.com',
-      password: '123456',
+      password: getHash('123456'),
       niname: 'niko',
       realname: '尼克',
       gender: 0,
-      created_at: now(),
-      updated_at: now(),
+      created_at: now,
+      updated_at: now,
     }], {});
     // return queryInterface.bulkInsert('articles_categories', [{
     //   name: 'test',
