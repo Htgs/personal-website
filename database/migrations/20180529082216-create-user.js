@@ -42,7 +42,7 @@ module.exports = {
         allowNull: false,
         defaultValue: false,
         type: Sequelize.BOOLEAN,
-        comment: '性别，0为男性，1为女性，默认为0'
+        comment: '性别，0为无，1为男性，2为女性，默认为0'
       },
       birth_date: {
         allowNull: true,
