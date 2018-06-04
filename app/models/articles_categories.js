@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var articles_category = sequelize.define('articles_categories', {
+  var articles_categories = sequelize.define('articles_categories', {
     pid: DataTypes.INTEGER,
     name: {
       type: DataTypes.STRING(30),
@@ -25,10 +25,10 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true, // 软删除
     underscored: true,
   });
-  articles_category.associate = function(models) {
+  articles_categories.associate = function(models) {
     // associations can be defined here
-    articles_category.hasMany(articles_category, {foreignKey: 'pid'});
-    articles_category.belongsTo(articles_category, {foreignKey: 'pid'});
+    articles_categories.hasMany(articles_categories, {foreignKey: 'pid'});
+    articles_categories.belongsTo(articles_categories, {foreignKey: 'pid'});
   };
-  return articles_category;
+  return articles_categories;
 };

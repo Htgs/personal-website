@@ -2,6 +2,5 @@
 /database/config/config.js
 config.js
 node_modules
-/uploads
 /config/dbConfig.js
 /config/redisConfig.js

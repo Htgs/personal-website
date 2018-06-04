@@ -1,42 +1,35 @@
 const User = require('../../models').user;
-
+const {setQueryText, pagination, storeOrUpdate} = require('../../../utils/IQuery');
+const q = {
+	attributes: {
+		exclude: ['password']
+	},
+    order: [['id', 'DESC']],
+    include: [
+        // { model: Profile, required: true}
+    ],
+}
 module.exports = {
     index: async (ctx, next) => {
-        // let users = await User.findAll();
-        // ctx.body = users;
-        ctx.body = 'index';
-        // console.log(User.findAll());
-        // try {
-        //     await User.findAll();
-        //     ctx.body = User.findAll();
-        // } catch (err) {
-        //     console.log(err)
-        //     ctx.status = err.statusCode || err.status || 500;
-        //     ctx.body = {
-        //         message: err.message
-        //     };
-        // }
-        // User.findAll()
-        //     .then(user => {
-        //         console.log(user);
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //     });
+        let query = setQueryText(ctx, ['name'], q);
+        ctx.body = await pagination('user', ctx.request, query);
     },
     store: async (ctx, next) => {
-        ctx.body = 'store';
+        ctx.body = await storeOrUpdate('user', ctx.request.body);
     },
     show: async (ctx, next) => {
-        ctx.body = 'show';
+        ctx.body = await User.findById(ctx.params.id);
     },
     edit: async (ctx, next) => {
-        ctx.body = 'edit';
+        ctx.body = await User.findById(ctx.params.id);
     },
     update: async (ctx, next) => {
-        ctx.body = 'update';
+        console.log('fields: ', ctx.request);
+        // ctx.body = await storeOrUpdate('user', ctx.request.body, ctx.params.id);
     },
     destory: async (ctx, next) => {
-        ctx.body = 'destory';
+        // 前端判断关联关系，存在关联关系时不能删除
+        let user = await User.findById(ctx.params.id);
+        ctx.body = await user.destroy();
     },
 }

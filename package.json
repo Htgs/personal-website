@@ -7,7 +7,7 @@
     "cross-env": "^5.1.6",
     "jsonwebtoken": "^8.2.2",
     "koa": "^2.5.1",
-    "koa-body": "^2.6.0",
+    "koa-better-body": "^3.0.4",
     "koa-helmet": "^4.0.0",
     "koa-jwt": "^3.3.2",
     "koa-router": "^7.4.0",

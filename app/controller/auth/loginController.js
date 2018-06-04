@@ -6,26 +6,29 @@ const {getHash, parseModel} = require('../../../utils/utils');
 module.exports = {
     /**
      * 登录接口
-     * ctx.request.body:
+     * ctx.request.fields:
      * name 或者 email 或者 phone 三选一 必须
      * password 必须
      * week：是否保持一周登录 可选
      */
     login: async (ctx, next) => {
-        let where = {},
+        // console.log(ctx.request.fields);
+        // console.log(ctx.request.files);
+        let request = ctx.request.fields,
+            where = {},
             tokenAliveTime = '1h'; // jwt 默认存活时间 1h
-        Object.keys(ctx.request.body).forEach(field => {
+        Object.keys(request).forEach(field => {
             if (field === 'password') {
                 // 设置密码
-                where[field] = getHash(ctx.request.body[field]);
+                where[field] = getHash(request[field]);
             } else if (field === 'week') {
-                if (ctx.request.body[field] === true) {
+                if (request[field] === true) {
                     // 一周内保持登录
                     tokenAliveTime = '7d';
                 }
             } else {
                 // name || email || phone 字段
-                where[field] = ctx.request.body[field];
+                where[field] = request[field];
             }
         });
         try {
