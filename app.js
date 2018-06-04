@@ -10,7 +10,6 @@ const helmet = require('koa-helmet');
 const logger = require('koa-logger');
 const koaJwt = require('koa-jwt');
 const koaBetterBody = require('koa-better-body');
-// const koaBody = require('koa-body');
 
 // 本地引用
 const webRoutes = require('./routes/web');
@@ -25,13 +24,6 @@ if (!fs.existsSync(config.uploadsPath)) { // 判断上传文件夹是否存在�
 
 app.use(helmet());
 app.use(logger());
-// app.use(koaBody({
-//     // multipart: true,
-//     formidable: {
-//         uploadDir: config.uploadsPath,
-//         keepExtensions: true,
-//     },
-// }));
 app.use(koaBetterBody());
 
 app.use(function(ctx, next){

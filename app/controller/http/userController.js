@@ -1,4 +1,5 @@
 const User = require('../../models').user;
+const {getHash, uploadFile} = require('../../../utils/utils');
 const {setQueryText, pagination, storeOrUpdate} = require('../../../utils/IQuery');
 const q = {
 	attributes: {
@@ -24,7 +25,19 @@ module.exports = {
         ctx.body = await User.findById(ctx.params.id);
     },
     update: async (ctx, next) => {
-        console.log('fields: ', ctx.request);
+        let request = ctx.request.fields;
+            data = {};
+        let avatar = await User.findById(ctx.params.id).avatar;
+        Object.keys(request).forEach(field => {
+            if (field === 'avatar') {
+                data[field] = uploadFile(request[field][0], avatar);
+            } else if (field === 'password') {
+                data[field] = getHash(request[field]);
+            } else {
+                data[field] = request[field];
+            }
+        });
+        // console.log(data);
         // ctx.body = await storeOrUpdate('user', ctx.request.body, ctx.params.id);
     },
     destory: async (ctx, next) => {

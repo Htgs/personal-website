@@ -7,7 +7,7 @@ module.exports = {
         ctx.body = await pagination('articles_categories', ctx.request, query);
     },
     store: async (ctx, next) => {
-        ctx.body = await storeOrUpdate('articles_categories', ctx.request.body);
+        ctx.body = await storeOrUpdate('articles_categories', ctx.request.fields);
     },
     show: async (ctx, next) => {
         ctx.body = await Articles_categories.findById(ctx.params.id);
@@ -16,7 +16,7 @@ module.exports = {
         ctx.body = await Articles_categories.findById(ctx.params.id);
     },
     update: async (ctx, next) => {
-        ctx.body = await storeOrUpdate('articles_categories', ctx.request.body, ctx.params.id);
+        ctx.body = await storeOrUpdate('articles_categories', ctx.request.fields, ctx.params.id);
     },
     destory: async (ctx, next) => {
         // 前端判断关联关系，存在关联关系时不能删除

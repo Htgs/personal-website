@@ -12,8 +12,6 @@ module.exports = {
      * week：是否保持一周登录 可选
      */
     login: async (ctx, next) => {
-        // console.log(ctx.request.fields);
-        // console.log(ctx.request.files);
         let request = ctx.request.fields,
             where = {},
             tokenAliveTime = '1h'; // jwt 默认存活时间 1h

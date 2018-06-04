@@ -11,8 +11,9 @@ module.exports = {
      * model: 当前模块 前端url请求包含
      */
     check: async (ctx, next) => {
-        let field = ctx.request.body.field,
-            value = ctx.request.body.value,
+        let request = ctx.request.fields;
+        let field = request.field,
+            value = request.value,
             Model;
         if (ctx.url === '/register/check') {
             // 注册时，验证用户信息是否重复

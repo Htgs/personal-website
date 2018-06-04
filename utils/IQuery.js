@@ -50,17 +50,17 @@ module.exports = {
     /**
      * 插入或者更新数据
      * model: 模型
-     * body: ctx.request.body
+     * data: 前端传到后台的数据
      * id: 数据库id值
      */
-    storeOrUpdate: async function(model, body, id = -1) {
+    storeOrUpdate: async function(model, data, id = -1) {
         let res;
         if (id === -1) {
-            res = await Models[model].build(body);
+            res = await Models[model].build(data);
         } else {
             res = await Models[model].findById(id);
-            Object.keys(body).forEach(field => {
-                res[field] = body[field];
+            Object.keys(data).forEach(field => {
+                res[field] = data[field];
             });
         }
         return await res.save();

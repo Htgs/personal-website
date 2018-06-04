@@ -5,10 +5,10 @@ const articles_categoriesController = require('../../app/controller/http/article
 const {resource} = require('../../utils/route');
 
 const articles_categories = new Router({
-    prefix: '/articles_category',
+    prefix: '/articles_categories',
 });
 
-// articles_category
+// articles_categories
 //     .get('/all', articles_categoriesController['all']);
 
 resource(articles_categories, articles_categoriesController, {

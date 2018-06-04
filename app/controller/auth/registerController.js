@@ -3,7 +3,7 @@ const User = require('../../models').user;
 module.exports = {
     /**
      * 注册
-     * ctx.request.body:
+     * request:
      * name :用户名
      * password :密码
      * email : 邮箱
@@ -11,12 +11,13 @@ module.exports = {
      * niname : 昵称
      */
     register: async (ctx, next) => {
-        let data = {};
-        Object.keys(ctx.request.body).forEach(field => {
+        let request = ctx.request.fields,
+            data = {};
+        Object.keys(request).forEach(field => {
             if (field === 'password') {
-                password = getHash(ctx.request.body.password);
+                password = getHash(request.password);
             } else {
-                where[field] = ctx.request.body[field];
+                where[field] = request[field];
             }
         });
         let fields = {fields: Object.keys(data)};
