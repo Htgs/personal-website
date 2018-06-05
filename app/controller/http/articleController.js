@@ -22,7 +22,7 @@ module.exports = {
     update: async (ctx, next) => {
         let request = ctx.request.fields;
         request['content'] = htmlEncode(request['content']);
-        ctx.body = await storeOrUpdate('article', ctx.request.fields, ctx.params.id);
+        ctx.body = await storeOrUpdate('article', request, ctx.params.id);
     },
     destory: async (ctx, next) => {
         // 前端判断关联关系，存在关联关系时不能删除

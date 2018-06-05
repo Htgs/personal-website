@@ -1,7 +1,9 @@
 .vscode
 /database/config/config.js
-config.js
 node_modules
 /config/dbConfig.js
 /config/redisConfig.js
-/uploads
+/uploads/*.jpeg
+/uploads/*.png
+/config/config.js
+config.js
