@@ -23,7 +23,36 @@ module.exports = {
                 [Op.or]: or,
             };
         }
-        return Object.assign({}, query, {where});;
+        if (!query.where) {
+            query.where = {};
+        }
+        query.where = {
+            ...query.where,
+            ...where,
+        };
+        return query;
+    },
+    /**
+     * 设置过滤条件
+     * ctx: koa的ctx,
+     * fields: 字段的数组 ['name']
+     * query: 其他查询条件
+     */
+    setQueryFilter: function(ctx, fields, query = {}) {
+        let where = {};
+        fields.forEach(field => {
+            if (ctx.query[field]) {
+                where[field] = ctx.query[field];
+            }
+        });
+        if (!query.where) {
+            query.where = {};
+        }
+        query.where = {
+            ...query.where,
+            ...where,
+        };
+        return query;
     },
     /**
      * 分页函数
@@ -59,9 +88,13 @@ module.exports = {
             res = await Models[model].build(data);
         } else {
             res = await Models[model].findById(id);
-            Object.keys(data).forEach(field => {
-                res[field] = data[field];
-            });
+            if (res) {
+                Object.keys(data).forEach(field => {
+                    res[field] = data[field];
+                });
+            } else {
+                return false;
+            }
         }
         return await res.save();
     },

@@ -23,11 +23,6 @@ module.exports = {
         type: Sequelize.STRING(200),
         comment: '回复内容'
       },
-      date: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        comment: '回复时间'
-      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

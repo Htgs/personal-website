@@ -28,11 +28,6 @@ module.exports = {
         type: Sequelize.STRING(255),
         comment: '内容'
       },
-      date: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        comment: '记录时间'
-      },
       ip: {
         allowNull: false,
         type: Sequelize.STRING(50),

@@ -28,11 +28,6 @@ module.exports = {
         type: Sequelize.TEXT,
         comment: '文章内容'
       },
-      date: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        comment: '文章发表日期'
-      },
       is_public: {
         allowNull: false,
         defaultValue: true,

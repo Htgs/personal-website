@@ -5,7 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     model: DataTypes.STRING(50),
     type: DataTypes.BOOLEAN,
     content: DataTypes.STRING(255),
-    date: DataTypes.DATE,
     ip: DataTypes.STRING(50),
   }, {
     timestamps: true,

@@ -5,41 +5,52 @@ const path = require('path');
 const {uploadsPath} = require('../config/config.js');
 
 module.exports = {
-    // 加密方法
+    /**
+     * 加密方法
+     * @param {String} password 密码
+     */
     getHash(password) {
         return crypto.createHash('md5')
             .update(password)
             .digest('hex');
     },
-    // 对象化模型
+    /**
+     * 对象化实例
+     * @param {Class} model sequelize实例
+     */
     parseModel(model) {
         return JSON.parse(JSON.stringify(model));
     },
-    // 文件上传
-    uploadFile(file, avatar) {
-        console.log(avatar);
-        // console.log(uploadsPath);
-        console.log(file);
-        let fileName = `${path.basename(file.path)}.${file.type.split('/')[1]}`,
+    /**
+     * 文件上传
+     * @param {file} file 新文件
+     * @param {String} oldFilePath 旧文件路径
+     */
+    uploadFile(file, oldFilePath) {
+        try {
+            let fileName = `${path.basename(file.path)}.${file.type.split('/')[1]}`,
             fileData = fs.readFileSync(file.path);
-        console.log(fileName);
-        console.log(fileData);
-        fs.appendFile(path.join(uploadsPath, fileName), fileData, function(err) {
-            if (err) {
-                throw err;
-            }
+            fs.appendFileSync(path.join(uploadsPath, fileName), fileData);
             fs.unlinkSync(file.path);
-        });
-        // fs.writeFileSync(path.join(uploadsPath, `${path.basename(file.path)}.${ext}`));
-        // // 如果图片存在就添加乳品
-        //     data['avatar'] = path.basename(files.avatar.path)
-        //     IQuery.getDataById(req.params.id, {
-        //         attributes: ['avatar'],
-        //     })
-        //     .then(res => {
-        //         if (res.avatar !== null) {
-        //             fs.unlinkSync(path.join(imgUploadPath, res.avatar))
-        //         }
-        //     })
+            if (oldFilePath) {
+                fs.unlinkSync(path.join(uploadsPath, oldFilePath));
+            }
+            return fileName;
+        } catch (err) {
+            throw err;
+        }
+    },
+    /**
+     * html文本转义 xss防护
+     * @param {String} html 富文本编辑器文本
+     */
+    htmlEncode (html){
+        return String(html)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;")
+            .replace(/ /g, "&nbsp;");
     },
 };

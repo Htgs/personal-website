@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    date: DataTypes.DATE,
   }, {
     timestamps: true,
     paranoid: true, // 软删除

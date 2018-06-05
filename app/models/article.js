@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     content: DataTypes.TEXT,
-    date: DataTypes.DATE,
     is_public: DataTypes.BOOLEAN,
   }, {
     timestamps: true,
