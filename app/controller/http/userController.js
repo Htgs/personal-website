@@ -44,10 +44,23 @@ module.exports = {
         ctx.body = await storeOrUpdate('user', data);
     },
     show: async (ctx, next) => {
-        ctx.body = await User.findById(ctx.params.id);
+        let query = {
+            where: {
+                id: ctx.params.id,
+            },
+            ...q,
+        }
+        ctx.body = await User.findOne(query);
     },
     edit: async (ctx, next) => {
-        ctx.body = await User.findById(ctx.params.id);
+        let query = {
+            where: {
+                id: ctx.params.id,
+            },
+            ...q,
+        }
+        console.log(query);
+        ctx.body = await User.findOne(query);
     },
     update: async (ctx, next) => {
         let data = await userStoreOrUpdate(ctx.request.fields, ctx.params.id);

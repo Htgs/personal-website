@@ -72,8 +72,8 @@ module.exports = {
         return {
             data: res.rows,
             total: res.count,
-            page: page,
-            pageSize: pageSize,
+            page: parseInt(page),
+            pageSize: parseInt(pageSize),
         };
     },
     /**
