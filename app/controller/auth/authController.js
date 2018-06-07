@@ -5,7 +5,8 @@ module.exports = {
     // 验证用户是否登录
     auth: async (ctx, next) => {
         try {
-            const token = ctx.header.authorization;
+            console.log(ctx);
+            const token = ctx.headers.authorization;
             if (token) {
                 let payload = await jwt.verify(token.split(' ')[1], jwtSecret);
                 let now = new Date().getTime()
@@ -22,13 +23,8 @@ module.exports = {
             }
         } catch (err) {
             console.log(err);
-            if (err.message === 'jwt expired') {
-                // jwt过期
-                ctx.status = 401;
-            } else {
-                ctx.status = 500;
-                ctx.body = err.message;
-            }
+            ctx.status = 500;
+            ctx.body = err.message;
         }
     },
 }

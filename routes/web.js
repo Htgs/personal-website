@@ -7,15 +7,13 @@ const utilController = require('../app/controller/utilController');
 
 const web = new Router();
 
-web.get('/auth', authController.auth);
-
 web.post('/register', registerController.register);
 
 web.post('/register/check', utilController.check);
 
-web.post('/login', loginController.login);
-
-web.get('/logout', loginController.logout);
+web.get('/admin/auth', authController.auth);
+web.post('/admin/login', loginController.login);
+web.get('/admin/logout', loginController.logout);
 
 module.exports = function (app) {
     app

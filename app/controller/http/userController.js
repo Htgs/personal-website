@@ -9,7 +9,7 @@ const q = {
     include: [
         // { model: Profile, required: true}
     ],
-}
+};
 
 /**
  * 新增或者更新的用户处理

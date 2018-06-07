@@ -9,7 +9,7 @@ const modelApis = require('./modelApis');
 //     api.use('/api', modelApis[key].routes(), modelApis[key].allowedMethods());
 // });
 
-api.use(permission);
+// api.use(permission);
 
 Object.keys(modelApis).forEach(key => {
     api.use('/api/admin', modelApis[key].routes(), modelApis[key].allowedMethods());
