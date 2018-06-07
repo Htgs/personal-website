@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const {jwtSecret} = require('../../../config/config');
-const User = require('../../models').user;
 
 module.exports = {
     // 验证用户是否登录
