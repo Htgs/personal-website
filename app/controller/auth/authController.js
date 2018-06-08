@@ -23,8 +23,12 @@ module.exports = {
             }
         } catch (err) {
             console.log(err);
-            ctx.status = 500;
-            ctx.body = err.message;
+            if (err.message === 'jwt expired') {
+                ctx.status = 401;
+            } else {
+                ctx.status = 500;
+                ctx.body = err.message;
+            }
         }
     },
 }
