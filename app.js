@@ -38,7 +38,7 @@ app.use(function(ctx, next){
 
 webRoutes(app);
 
-app.use(koaJwt({ secret: config.jwtSecret }));
+app.use(koaJwt({ secret: config.jwtSecret }).unless({ path: [/^\/uploads/] }));
 
 apiRoutes(app);
 

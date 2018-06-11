@@ -40,9 +40,10 @@ module.exports = {
       },
       gender: {
         allowNull: false,
-        defaultValue: false,
-        type: Sequelize.BOOLEAN,
-        comment: '性别，0为无，1为男性，2为女性，默认为0'
+        defaultValue: '0',
+        type: Sequelize.ENUM,
+        values: ['0', '1', '2'],
+        comment: '性别，0为保密，1为男性，2为女性，默认为0'
       },
       birth_date: {
         allowNull: true,

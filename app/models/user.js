@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    gender: DataTypes.BOOLEAN,
+    gender: DataTypes.ENUM('0', '1', '2'),
     birth_date: {
       type: DataTypes.DATEONLY,
       validate: {
@@ -57,13 +57,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     phone: {
       type: DataTypes.STRING(50),
-      validate: {
-        isEven(phone) {
-          if ((phone.length === 11 && /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/.test(phone)) || (phone.length === 12 && /^(([0+]\d{2,3}-)?(0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/.test(phone))) {
-            throw new Error('电话号码格式不正确');
-          }
-        },
-      },
+      // validate: {
+      //   isEven(phone) {
+      //     if ((phone.length === 11 && /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/.test(phone)) || (phone.length === 12 && /^(([0+]\d{2,3}-)?(0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/.test(phone))) {
+      //       throw new Error('电话号码格式不正确');
+      //     }
+      //   },
+      // },
     },
     memo: {
       type: DataTypes.TEXT,

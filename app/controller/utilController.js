@@ -1,3 +1,6 @@
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
 const models = require('../models');
 
 module.exports = {
@@ -14,6 +17,7 @@ module.exports = {
         let request = ctx.request.fields;
         let field = request.field,
             value = request.value,
+            id = request.id,
             Model;
         if (ctx.url === '/register/check') {
             // 注册时，验证用户信息是否重复
@@ -22,11 +26,15 @@ module.exports = {
             Model = models[ctx.params.model];
         }
         try {
-            let res = await Model.find({
-                where: {
-                    [field]: value
-                },
-            });
+            let where = {
+                [field]: value
+            };
+            if (id) {
+                where['id'] = {
+                    [Op.ne]: id,
+                }
+            }
+            let res = await Model.find({ where });
             if (res) {
                 ctx.body = {
                     res: false,

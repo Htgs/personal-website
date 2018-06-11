@@ -1,6 +1,7 @@
 const User = require('../../models').user;
 const {getHash, uploadFile} = require('../../../utils/utils');
 const {setQueryText, pagination, storeOrUpdate} = require('../../../utils/IQuery');
+// const {isString} = require('../../../utils/utils');
 const q = {
 	attributes: {
 		exclude: ['password']
@@ -21,12 +22,17 @@ async function userStoreOrUpdate(request, id) {
         user = {};
     if (id) {
         user = await User.findById(id);
+        data['password'] = getHash(user['password']);
+    } else {
+        data['password'] = getHash('000000');
     }
     Object.keys(request).forEach(field => {
         if (field === 'avatar') {
-            data[field] = uploadFile(request[field][0], user.avatar);
-        } else if (field === 'password') {
-            data[field] = getHash(request[field]);
+            if (isString(request[field][0])) {
+                data[field] = request[field][0];
+            } else {
+                data[field] = uploadFile(request[field][0], user.avatar);
+            }
         } else {
             data[field] = request[field];
         }
@@ -50,7 +56,7 @@ module.exports = {
             },
             ...q,
         }
-        ctx.body = await User.findOne(query);
+        ctx.body = await User.find(query);
     },
     edit: async (ctx, next) => {
         let query = {
@@ -60,7 +66,7 @@ module.exports = {
             ...q,
         }
         console.log(query);
-        ctx.body = await User.findOne(query);
+        ctx.body = await User.find(query);
     },
     update: async (ctx, next) => {
         let data = await userStoreOrUpdate(ctx.request.fields, ctx.params.id);
