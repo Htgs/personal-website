@@ -1,7 +1,7 @@
 const User = require('../../models').user;
 const {getHash, uploadFile} = require('../../../utils/utils');
 const {setQueryText, pagination, storeOrUpdate} = require('../../../utils/IQuery');
-// const {isString} = require('../../../utils/utils');
+const {isString} = require('../../../utils/utils');
 const q = {
 	attributes: {
 		exclude: ['password']

@@ -5,6 +5,25 @@ const path = require('path');
 const {uploadsPath} = require('../config/config.js');
 
 module.exports = {
+    // 通用公共方法 -----------------------------------------------
+	isString: function(StringToCheck) {
+		return Object.prototype.toString.call(StringToCheck) === '[object String]';
+	},
+	isBoolean: function(BooleanToCheck) {
+		return Object.prototype.toString.call(BooleanToCheck) === '[object Boolean]';
+	},
+	isNumber: function(NumberToCheck) {
+		return Object.prototype.toString.call(NumberToCheck) === '[object Number]';
+	},
+	isObject: function(objectToCheck) {
+		return Object.prototype.toString.call(objectToCheck) === '[object Object]';
+	},
+	isArray: function(ArrayToCheck) {
+		return Object.prototype.toString.call(ArrayToCheck) === '[object Array]';
+	},
+	isFunction: function(FunctionToCheck) {
+		return Object.prototype.toString.call(FunctionToCheck) === '[object Function]';
+	},
     /**
      * 加密方法
      * @param {String} password 密码
