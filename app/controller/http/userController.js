@@ -22,14 +22,13 @@ async function userStoreOrUpdate(request, id) {
         user = {};
     if (id) {
         user = await User.findById(id);
-        data['password'] = getHash(user['password']);
     } else {
         data['password'] = getHash('000000');
     }
     Object.keys(request).forEach(field => {
-        if (field === 'avatar') {
-            if (isString(request[field][0])) {
-                data[field] = request[field][0];
+        if (field === 'avatar' && request[field]) {
+            if (isString(request[field])) {
+                data[field] = request[field];
             } else {
                 data[field] = uploadFile(request[field][0], user.avatar);
             }
@@ -42,12 +41,22 @@ async function userStoreOrUpdate(request, id) {
 
 module.exports = {
     index: async (ctx, next) => {
+        console.log(q);
         let query = setQueryText(ctx, ['name'], q);
+        console.log(q);
+        console.log(query);
         ctx.body = await pagination('user', ctx.request, query);
     },
     store: async (ctx, next) => {
         let data = await userStoreOrUpdate(ctx.request.fields);
-        ctx.body = await storeOrUpdate('user', data);
+        let user = await storeOrUpdate('user', data);
+        let query = {
+            where: {
+                id: user.id,
+            },
+            ...q,
+        }
+        ctx.body = await User.find(query);
     },
     show: async (ctx, next) => {
         let query = {
@@ -65,12 +74,18 @@ module.exports = {
             },
             ...q,
         }
-        console.log(query);
         ctx.body = await User.find(query);
     },
     update: async (ctx, next) => {
         let data = await userStoreOrUpdate(ctx.request.fields, ctx.params.id);
-        ctx.body = await storeOrUpdate('user', data, ctx.params.id);
+        let user = await storeOrUpdate('user', data, ctx.params.id);
+        let query = {
+            where: {
+                id: user.id,
+            },
+            ...q,
+        }
+        ctx.body = await User.find(query);
     },
     destory: async (ctx, next) => {
         // 前端判断关联关系，存在关联关系时不能删除

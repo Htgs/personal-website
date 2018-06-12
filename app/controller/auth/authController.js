@@ -5,7 +5,6 @@ module.exports = {
     // 验证用户是否登录
     auth: async (ctx, next) => {
         try {
-            console.log(ctx);
             const token = ctx.headers.authorization;
             if (token) {
                 let payload = await jwt.verify(token.split(' ')[1], jwtSecret);

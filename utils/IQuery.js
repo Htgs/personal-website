@@ -9,7 +9,8 @@ module.exports = {
      * query: 其他查询条件
      */
     setQueryText: function(ctx, fields, query = {}) {
-        let where = {};
+        let where = {},
+            q = {};
         if (ctx.query.query_text) {
             let or = []
             fields.forEach(field => {
@@ -23,14 +24,11 @@ module.exports = {
                 [Op.or]: or,
             };
         }
-        if (!query.where) {
-            query.where = {};
-        }
-        query.where = {
-            ...query.where,
-            ...where,
+        q = {
+            ...query,
+            where,
         };
-        return query;
+        return q;
     },
     /**
      * 设置过滤条件
@@ -39,20 +37,18 @@ module.exports = {
      * query: 其他查询条件
      */
     setQueryFilter: function(ctx, fields, query = {}) {
-        let where = {};
+        let where = {},
+            q = {};
         fields.forEach(field => {
             if (ctx.query[field]) {
                 where[field] = ctx.query[field];
             }
         });
-        if (!query.where) {
-            query.where = {};
-        }
-        query.where = {
-            ...query.where,
-            ...where,
+        q = {
+            ...query,
+            where,
         };
-        return query;
+        return q;
     },
     /**
      * 分页函数

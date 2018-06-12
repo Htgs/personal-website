@@ -29,7 +29,7 @@ module.exports = {
       password: getHash('123456'),
       niname: 'niko',
       realname: '尼克',
-      gender: 0,
+      gender: '0',
       created_at: now,
       updated_at: now,
     }], {});

@@ -11,6 +11,7 @@
     "koa-helmet": "^4.0.0",
     "koa-jwt": "^3.3.2",
     "koa-router": "^7.4.0",
+    "koa-static": "^4.0.3",
     "mysql2": "^1.5.3",
     "sequelize": "^4.37.10",
     "sequelize-cli": "^4.0.0"

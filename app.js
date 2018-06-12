@@ -22,6 +22,8 @@ if (!fs.existsSync(config.uploadsPath)) { // 判断上传文件夹是否存在�
 	fs.mkdirSync(config.uploadsPath);
 }
 
+app.use(require('koa-static')(config.uploadsPath));
+
 app.use(helmet());
 app.use(logger());
 app.use(koaBetterBody());
