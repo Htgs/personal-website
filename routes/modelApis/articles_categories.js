@@ -5,7 +5,7 @@ const articles_categoriesController = require('../../app/controller/http/article
 const {resource} = require('../../utils/route');
 
 const articles_categories = new Router({
-    prefix: '/articles_category',
+    prefix: '/article-category',
 });
 
 // articles_categories
