@@ -1,6 +1,6 @@
 const User = require('../../models').user;
 const {getHash, uploadFile} = require('../../../utils/utils');
-const {setQueryText, pagination, storeOrUpdate} = require('../../../utils/IQuery');
+const {setQueryText, setQueryOrder, pagination, storeOrUpdate} = require('../../../utils/IQuery');
 const {isString} = require('../../../utils/utils');
 const q = {
 	attributes: {
@@ -41,10 +41,8 @@ async function userStoreOrUpdate(request, id) {
 
 module.exports = {
     index: async (ctx, next) => {
-        console.log(q);
         let query = setQueryText(ctx, ['name'], q);
-        console.log(q);
-        console.log(query);
+        query = setQueryOrder(ctx, ['birth_date', 'gender'], query);
         ctx.body = await pagination('user', ctx.request, query);
     },
     store: async (ctx, next) => {

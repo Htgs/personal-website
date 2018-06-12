@@ -31,6 +31,24 @@ module.exports = {
         return q;
     },
     /**
+     * 设置排序条件
+     * ctx: koa的ctx,
+     * fields: 字段的数组 ['birth_date'] 如果字段数组中存在前端发送排序的值，则可以覆盖排序
+     * query: 其他查询条件
+     */
+    setQueryOrder: function(ctx, fields, query = {}) {
+        let q = {
+            ...query,
+        };
+        if (ctx.query._order && ctx.query._sort) {
+            if (fields.includes(ctx.query._sort)) {
+                let order = [[`${ctx.query._sort}`, `${ctx.query._order}`]];
+                q['order'] = order;
+            }
+        }
+        return q;
+    },
+    /**
      * 设置过滤条件
      * ctx: koa的ctx,
      * fields: 字段的数组 ['name']
