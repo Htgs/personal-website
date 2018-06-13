@@ -2,14 +2,22 @@ const Article = require('../../models').article;
 const {htmlEncode} = require('../../../utils/utils');
 const {setQueryText, setQueryFilter, pagination, storeOrUpdate} = require('../../../utils/IQuery');
 
+const q = {
+    order: [['id', 'DESC']],
+    include: [
+        // { model: Profile, required: true}
+    ],
+};
+
 module.exports = {
     index: async (ctx, next) => {
-        let query = setQueryText(ctx, ['title', 'content']);
+        let query = setQueryText(ctx, ['title', 'content'], q);
         query = setQueryFilter(ctx, ['category_id', 'is_public'], query);
         ctx.body = await pagination('article', ctx.request, query);
     },
     store: async (ctx, next) => {
         let request = ctx.request.fields;
+        request['user_id'] = ctx.state.user.id;
         request['content'] = htmlEncode(request['content']);
         ctx.body = await storeOrUpdate('article', request);
     },

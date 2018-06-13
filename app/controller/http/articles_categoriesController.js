@@ -23,4 +23,7 @@ module.exports = {
         let articles_categories = await Articles_categories.findById(ctx.params.id);
         ctx.body = await articles_categories.destroy();
     },
+    all: async (ctx, next) => {
+        ctx.body = await Articles_categories.findAll();
+    },
 }

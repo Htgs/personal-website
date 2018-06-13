@@ -10,6 +10,7 @@ const q = {
     include: [
         // { model: Profile, required: true}
     ],
+    paranoid: false,
 };
 
 /**
@@ -42,7 +43,7 @@ async function userStoreOrUpdate(request, id) {
 module.exports = {
     index: async (ctx, next) => {
         let query = setQueryText(ctx, ['name'], q);
-        query = setQueryOrder(ctx, ['birth_date', 'gender'], query);
+        query = setQueryOrder(ctx, ['birth_date'], query);
         ctx.body = await pagination('user', ctx.request, query);
     },
     store: async (ctx, next) => {

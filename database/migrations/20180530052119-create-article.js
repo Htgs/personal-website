@@ -30,8 +30,9 @@ module.exports = {
       },
       is_public: {
         allowNull: false,
-        defaultValue: true,
-        type: Sequelize.BOOLEAN,
+        defaultValue: '0',
+        type: Sequelize.ENUM,
+        values: ['0', '1'],
         comment: '是否公开，0为不公开，1为公开，默认为1'
       },
       created_at: {

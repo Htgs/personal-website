@@ -8,8 +8,8 @@ const articles_categories = new Router({
     prefix: '/article-category',
 });
 
-// articles_categories
-//     .get('/all', articles_categoriesController['all']);
+articles_categories
+    .get('/all', articles_categoriesController['all']);
 
 resource(articles_categories, articles_categoriesController, {
     // only: ['index'],

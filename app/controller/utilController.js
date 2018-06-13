@@ -23,7 +23,13 @@ module.exports = {
             // 注册时，验证用户信息是否重复
             Model = models['user'];
         } else {
-            Model = models[ctx.params.model];
+            let model;
+            if (ctx.params.model === 'article-category') {
+                model = 'articles_categories';
+            } else {
+                model = ctx.params.model;
+            }
+            Model = models[model];
         }
         try {
             let where = {

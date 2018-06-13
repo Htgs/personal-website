@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     content: DataTypes.TEXT,
-    is_public: DataTypes.BOOLEAN,
+    is_public: DataTypes.ENUM('0', '1'),
   }, {
     timestamps: true,
     paranoid: true, // 软删除
