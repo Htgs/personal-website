@@ -1,12 +1,18 @@
 const Article = require('../../models').article;
+const User = require('../../models').user;
 const {htmlEncode} = require('../../../utils/utils');
 const {setQueryText, setQueryFilter, pagination, storeOrUpdate} = require('../../../utils/IQuery');
 
 const q = {
     order: [['id', 'DESC']],
     include: [
-        // { model: Profile, required: true}
+        {
+            model: User,
+            attributes: ['id', 'name', 'niname'],
+            paranoid: false,
+        }
     ],
+    paranoid: false,
 };
 
 module.exports = {
@@ -22,7 +28,13 @@ module.exports = {
         ctx.body = await storeOrUpdate('article', request);
     },
     show: async (ctx, next) => {
-        ctx.body = await Article.findById(ctx.params.id);
+        let query = {
+            where: {
+                id: ctx.params.id,
+            },
+            ...q,
+        }
+        ctx.body = await Article.find(query);
     },
     edit: async (ctx, next) => {
         ctx.body = await Article.findById(ctx.params.id);
