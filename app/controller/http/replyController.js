@@ -1,9 +1,10 @@
 const Reply = require('../../models').reply;
-const {setQueryText, setQueryFilter, pagination, storeOrUpdate} = require('../../../utils/IQuery');
+const {setQueryText, setQueryFilter, setParanoid, pagination, storeOrUpdate} = require('../../../utils/IQuery');
 
 module.exports = {
     index: async (ctx, next) => {
         let query = setQueryText(ctx, ['content']);
+        query = setParanoid(ctx, query);
         ctx.body = await pagination('reply', ctx.request, query);
     },
     store: async (ctx, next) => {

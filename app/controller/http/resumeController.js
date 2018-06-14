@@ -1,11 +1,12 @@
 const Resume = require('../../models').resume;
-const {setQueryText, setQueryFilter, pagination, storeOrUpdate} = require('../../../utils/IQuery');
+const {setQueryText, setQueryFilter, setParanoid, pagination, storeOrUpdate} = require('../../../utils/IQuery');
 
 module.exports = {
     index: async (ctx, next) => {
         // let query = setQueryText(ctx, ['title', 'content']);
         // query = setQueryFilter(ctx, ['category_id', 'is_public'], query);
         let query = {};
+        query = setParanoid(ctx, query);
         ctx.body = await pagination('resume', ctx.request, query);
     },
     store: async (ctx, next) => {

@@ -54,6 +54,7 @@ module.exports = {
     // 登出
     logout: async (ctx, next) => {
         console.log(ctx);
+        ctx.state = {};
         // if (ctx.state.user) {
         //     ctx.state = {}
         // } else {

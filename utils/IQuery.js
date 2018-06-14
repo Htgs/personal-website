@@ -69,6 +69,23 @@ module.exports = {
         return q;
     },
     /**
+     * 判断是否是后台接口，如果是后台接口增加paranoid参数
+     */
+    setParanoid: function(ctx, query) {
+        if (ctx.path.indexOf('admin')) {
+            query['paranoid'] = false;
+            if (query['include']) {
+                query['include'].forEach(item => {
+                    item['paranoid'] = false;
+                });
+            }
+            return query;
+        } else {
+            return query;
+        }
+        // paranoid: false,
+    },
+    /**
      * 分页函数
      * model: 模型
      * request: ctx.request

@@ -1,7 +1,7 @@
 const Article = require('../../models').article;
 const User = require('../../models').user;
 const {htmlEncode} = require('../../../utils/utils');
-const {setQueryText, setQueryFilter, pagination, storeOrUpdate} = require('../../../utils/IQuery');
+const {setQueryText, setQueryFilter, setParanoid, pagination, storeOrUpdate} = require('../../../utils/IQuery');
 
 const q = {
     order: [['id', 'DESC']],
@@ -9,16 +9,16 @@ const q = {
         {
             model: User,
             attributes: ['id', 'name', 'niname'],
-            paranoid: false,
         }
     ],
-    paranoid: false,
+    raw: true, // 原生查询结果
 };
 
 module.exports = {
     index: async (ctx, next) => {
         let query = setQueryText(ctx, ['title', 'content'], q);
         query = setQueryFilter(ctx, ['category_id', 'is_public'], query);
+        query = setParanoid(ctx, query);
         ctx.body = await pagination('article', ctx.request, query);
     },
     store: async (ctx, next) => {
@@ -33,7 +33,8 @@ module.exports = {
                 id: ctx.params.id,
             },
             ...q,
-        }
+        };
+        query = setParanoid(ctx, query);
         ctx.body = await Article.find(query);
     },
     edit: async (ctx, next) => {

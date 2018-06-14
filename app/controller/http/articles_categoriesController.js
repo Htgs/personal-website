@@ -1,13 +1,10 @@
 const Articles_categories = require('../../models').articles_categories;
-const {setQueryText, pagination, storeOrUpdate} = require('../../../utils/IQuery');
-
-const q = {
-    paranoid: false,
-};
+const {setQueryText, setParanoid, pagination, storeOrUpdate} = require('../../../utils/IQuery');
 
 module.exports = {
     index: async (ctx, next) => {
-        let query = setQueryText(ctx, ['name'], q);
+        let query = setQueryText(ctx, ['name']);
+        query = setParanoid(ctx, query);
         ctx.body = await pagination('articles_categories', ctx.request, query);
     },
     store: async (ctx, next) => {

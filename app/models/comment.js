@@ -1,8 +1,12 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var comment = sequelize.define('comment', {
+    pid: DataTypes.INTEGER,
     user_id: DataTypes.INTEGER,
     article_id: DataTypes.INTEGER,
+    user_name: DataTypes.STRING,
+    user_email: DataTypes.STRING,
+    user_website: DataTypes.STRING,
     content: {
       type: DataTypes.STRING(200),
       validate: {
@@ -19,6 +23,12 @@ module.exports = (sequelize, DataTypes) => {
   });
   comment.associate = function(models) {
     // associations can be defined here
+    comment.hasMany(comment, {foreignKey: 'pid'});
+    comment.belongsTo(comment, {foreignKey: 'pid'});
+    models.article.hasMany(comment, {foreignKey: 'article_id'});
+    comment.belongsTo(models.article, {foreignKey: 'article_id'});
+    models.user.hasMany(comment, {foreignKey: 'user_id'});
+    comment.belongsTo(models.user, {foreignKey: 'user_id'});
   };
   return comment;
 };

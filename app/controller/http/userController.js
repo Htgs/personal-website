@@ -1,16 +1,15 @@
 const User = require('../../models').user;
 const {getHash, uploadFile} = require('../../../utils/utils');
-const {setQueryText, setQueryOrder, pagination, storeOrUpdate} = require('../../../utils/IQuery');
+const {setQueryText, setQueryOrder, setParanoid, pagination, storeOrUpdate} = require('../../../utils/IQuery');
 const {isString} = require('../../../utils/utils');
 const q = {
 	attributes: {
 		exclude: ['password']
 	},
     order: [['id', 'DESC']],
-    include: [
-        // { model: Profile, required: true}
-    ],
-    paranoid: false,
+    // include: [
+    //     { model: Profile, required: true}
+    // ],
 };
 
 /**
@@ -44,6 +43,7 @@ module.exports = {
     index: async (ctx, next) => {
         let query = setQueryText(ctx, ['name'], q);
         query = setQueryOrder(ctx, ['birth_date'], query);
+        query = setParanoid(ctx, query);
         ctx.body = await pagination('user', ctx.request, query);
     },
     store: async (ctx, next) => {
@@ -54,7 +54,7 @@ module.exports = {
                 id: user.id,
             },
             ...q,
-        }
+        };
         ctx.body = await User.find(query);
     },
     show: async (ctx, next) => {
@@ -63,7 +63,8 @@ module.exports = {
                 id: ctx.params.id,
             },
             ...q,
-        }
+        };
+        query = setParanoid(ctx, query);
         ctx.body = await User.find(query);
     },
     edit: async (ctx, next) => {
@@ -72,7 +73,7 @@ module.exports = {
                 id: ctx.params.id,
             },
             ...q,
-        }
+        };
         ctx.body = await User.find(query);
     },
     update: async (ctx, next) => {
@@ -83,7 +84,7 @@ module.exports = {
                 id: user.id,
             },
             ...q,
-        }
+        };
         ctx.body = await User.find(query);
     },
     destory: async (ctx, next) => {

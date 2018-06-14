@@ -1,9 +1,10 @@
 const Comment = require('../../models').comment;
-const {setQueryText, pagination, storeOrUpdate} = require('../../../utils/IQuery');
+const {setQueryText, setParanoid, pagination, storeOrUpdate} = require('../../../utils/IQuery');
 
 module.exports = {
     index: async (ctx, next) => {
         let query = setQueryText(ctx, ['content']);
+        query = setParanoid(ctx, query);
         ctx.body = await pagination('comment', ctx.request, query);
     },
     store: async (ctx, next) => {

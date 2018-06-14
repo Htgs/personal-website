@@ -8,15 +8,31 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
+      pid: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        comment: '用户id'
+        comment: '父级评论'
       },
       article_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
         comment: '文章id'
+      },
+      user_id: {
+        type: Sequelize.INTEGER,
+        comment: '用户id'
+      },
+      user_name: {
+        type: Sequelize.STRING,
+        comment: '评论者名称',
+      }, 
+      user_email: {
+        type: Sequelize.STRING,
+        comment: '评论者邮箱',
+      },
+      user_website: {
+        type: Sequelize.STRING,
+        comment: '评论者网站',
       },
       content: {
         allowNull: false,
