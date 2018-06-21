@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   menu.associate = function(models) {
     // associations can be defined here
+    menu.hasMany(menu, {foreignKey: 'pid'});
+    menu.belongsTo(menu, {foreignKey: 'pid'});
   };
   return menu;
 };
