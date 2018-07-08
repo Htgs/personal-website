@@ -1,9 +1,20 @@
 const Comment = require('../../models').comment;
 const {setQueryText, setParanoid, pagination, storeOrUpdate} = require('../../../utils/IQuery');
 
+const q = {
+    order: [['id', 'DESC']],
+    include: [
+        {
+            model: Comment,
+        }
+    ],
+    raw: true, // 原生查询结果
+};
+
+
 module.exports = {
     index: async (ctx, next) => {
-        let query = setQueryText(ctx, ['content']);
+        let query = setQueryText(ctx, ['content'], q);
         query = setParanoid(ctx, query);
         ctx.body = await pagination('comment', ctx.request, query);
     },
