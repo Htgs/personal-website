@@ -8,8 +8,8 @@ const user = new Router({
     prefix: '/user',
 });
 
-// user
-//     .get('/all', userController['all']);
+user
+    .post('/user-info', userController['userinfo']);
 
 resource(user, userController, {
     // only: ['index'],

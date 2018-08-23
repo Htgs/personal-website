@@ -92,4 +92,11 @@ module.exports = {
         let user = await User.findById(ctx.params.id);
         ctx.body = await user.destroy();
     },
+    userinfo: async (ctx, next) => {
+        // 处理auth的用户信息。
+        // // 前端判断关联关系，存在关联关系时不能删除
+        // let user = await User.findById(ctx.params.id);
+        // ctx.body = await user.destroy();
+        ctx.body = '111';
+    },
 }
