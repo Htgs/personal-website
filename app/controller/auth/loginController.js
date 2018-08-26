@@ -3,6 +3,8 @@ const {jwtSecret} = require('../../../config/config');
 const User = require('../../models').user;
 const {getHash, parseModel} = require('../../../utils/utils');
 
+const {log} = require('../http/alogController');
+
 module.exports = {
     /**
      * 登录接口
@@ -40,6 +42,7 @@ module.exports = {
                 user = parseModel(user);
                 user['token'] = jwt.sign(user, jwtSecret, {expiresIn: tokenAliveTime});
                 ctx.state.user = user;
+                log(ctx, '', 1, '');
                 ctx.body = user;
             } else {
                 ctx.status = 422;
@@ -52,14 +55,9 @@ module.exports = {
         }
     },
     // 登出
-    logout: async (ctx, next) => {
-        console.log(ctx);
-        ctx.state = {};
-        // if (ctx.state.user) {
-        //     ctx.state = {}
-        // } else {
-        //     ctx.status = 401;
-        // }
+    logout: (ctx, next) => {
+        log(ctx, '', 2, '');
+        ctx.state.user = {};
         ctx.body = 'logout';
     },
 }

@@ -20,7 +20,7 @@ module.exports = {
       },
       type: {
         allowNull: false,
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING(50),
         comment: '操作类型 1为登录，2为登出，3为新增，4为更新，5为删除'
       },
       content: {

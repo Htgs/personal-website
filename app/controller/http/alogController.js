@@ -10,11 +10,11 @@ const models = {
     'resume': '简历',
 };
 const operation = {
-    '登录': 1,
-    '登出': 2,
-    '新增': 3,
-    '更新': 4,
-    '删除': 5,
+    1: '登录',
+    2: '登出',
+    3: '新增',
+    4: '更新',
+    5: '删除',
 };
 
 function setContent(model, type, content) {
@@ -47,7 +47,6 @@ module.exports = {
             ip: ip,
             content: `${user.name}${setContent(model, type, content)}`,
         }
-        console.log(ctx);
         await storeOrUpdate('alog', data);
     },
 }

@@ -1,4 +1,5 @@
 const Articles_categories = require('../../models').articles_categories;
+const {log} = require('./alogController');
 const {setQueryText, setParanoid, pagination, storeOrUpdate} = require('../../../utils/IQuery');
 
 module.exports = {
@@ -8,7 +9,9 @@ module.exports = {
         ctx.body = await pagination('articles_categories', ctx.request, query);
     },
     store: async (ctx, next) => {
-        ctx.body = await storeOrUpdate('articles_categories', ctx.request.fields);
+        let res = await storeOrUpdate('articles_categories', ctx.request.fields);
+        log(ctx, 'articles_category', 3, `id为${res.id}，名称为${res.name}的文章分类`);
+        ctx.body = res;
     },
     show: async (ctx, next) => {
         ctx.body = await Articles_categories.findById(ctx.params.id);
@@ -17,11 +20,14 @@ module.exports = {
         ctx.body = await Articles_categories.findById(ctx.params.id);
     },
     update: async (ctx, next) => {
-        ctx.body = await storeOrUpdate('articles_categories', ctx.request.fields, ctx.params.id);
+        let res = await storeOrUpdate('articles_categories', ctx.request.fields, ctx.params.id);
+        log(ctx, 'articles_category', 4, `id为${res.id}，名称为${res.name}的文章分类`);
+        ctx.body = res;
     },
     destory: async (ctx, next) => {
         // 前端判断关联关系，存在关联关系时不能删除
         let articles_categories = await Articles_categories.findById(ctx.params.id);
+        log(ctx, 'articles_category', 5, `id为${articles_categories.id}，名称为${articles_categories.name}的文章分类`);
         ctx.body = await articles_categories.destroy();
     },
     all: async (ctx, next) => {
