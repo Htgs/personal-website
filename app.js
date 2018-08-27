@@ -30,6 +30,7 @@ app.use(koaBetterBody());
 
 app.use(function(ctx, next){
     return next().catch((err) => {
+        console.log(err);
         if (401 == err.status) {
             ctx.status = 401;
         } else {

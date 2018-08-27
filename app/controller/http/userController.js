@@ -101,16 +101,8 @@ module.exports = {
         ctx.body = await user.destroy();
     },
     userinfo: async (ctx, next) => {
-        // 处理auth的用户信息。
-        let {user} = ctx.state,
-            fields = {};
-        //     sign = ctx.request.fields.sign;
-        // for (let i in ctx.request.fields) {
-        //     if (i === 'sign') break;
-        //     fields[i] = ctx.request.fields[i];
-        // }
-        // if (sign === getHash(JSON.stringify(user))) {
-        let data = await userStoreOrUpdate(fields, user.id);
+        let {user} = ctx.state;
+        let data = await userStoreOrUpdate(ctx.request.fields, user.id);
         await storeOrUpdate('user', data, user.id);
         let query = {
             where: {
@@ -120,9 +112,9 @@ module.exports = {
         };
         let res = await User.find(query);
         res = parseModel(res);
-        const sign = getHash(JSON.stringify(user));
-        res['token'] = jwt.sign(res, jwtSecret + sign, {expiresIn: '1h'});
+        const sign = getHash(JSON.stringify(res));
         res['sign'] = sign;
+        res['token'] = jwt.sign(res, jwtSecret, {expiresIn: '1h'});
         ctx.state.user = {
             ...ctx.state.user,
             ...res,
