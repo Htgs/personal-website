@@ -2,7 +2,7 @@ const Router = require('koa-router');
 
 const api = new Router();
 
-const authController = require('../app/controller/auth/authController');
+// const authController = require('../app/controller/auth/authController');
 const loginController = require('../app/controller/auth/loginController');
 const menus = require('../app/controller/http/menusController');
 const modelApis = require('./modelApis');
@@ -12,7 +12,7 @@ const modelApis = require('./modelApis');
 // });
 
 // 由于web的路由不能获取ctx.state
-api.get('/admin/auth', authController.auth);
+// api.get('/admin/auth', authController.auth);
 api.get('/admin/logout', loginController.logout);
 
 api.get('/api/:type/menu', menus['getMenus']);

@@ -1,6 +1,6 @@
 const Router = require('koa-router');
 
-// const authController = require('../app/controller/auth/authController');
+const authController = require('../app/controller/auth/authController');
 const registerController = require('../app/controller/auth/registerController');
 const loginController = require('../app/controller/auth/loginController');
 const utilController = require('../app/controller/utilController');
@@ -13,7 +13,7 @@ web.post('/register/check', utilController.check);
 
 web.post('/admin/login', loginController.login);
 // 不能获取到ctx的state
-// web.get('/admin/auth', authController.auth);
+web.get('/admin/auth', authController.auth);
 // web.get('/admin/logout', loginController.logout);
 
 module.exports = function (app) {

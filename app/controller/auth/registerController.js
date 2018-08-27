@@ -25,7 +25,9 @@ module.exports = {
             let user = await User.create(data, fields);
             if (user) {
                 user = parseModel(user);
-                user['token'] = jwt.sign(user, jwtSecret, {expiresIn: '1h'});
+                const sign = getHash(JSON.stringify(user));
+                user['sign'] = sign;
+                user['token'] = jwt.sign(user, jwtSecret + sign, {expiresIn: '1h'});
                 ctx.state.user = user;
                 ctx.body = user;
             } else {

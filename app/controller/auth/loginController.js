@@ -40,7 +40,9 @@ module.exports = {
             });
             if (user) {
                 user = parseModel(user);
-                user['token'] = jwt.sign(user, jwtSecret, {expiresIn: tokenAliveTime});
+                const sign = getHash(JSON.stringify(user));
+                user['token'] = jwt.sign(user, jwtSecret + sign, {expiresIn: tokenAliveTime});
+                user['sign'] = sign;
                 ctx.state.user = user;
                 log(ctx, '', 1, '');
                 ctx.body = user;
