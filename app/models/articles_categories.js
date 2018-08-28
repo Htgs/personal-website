@@ -11,15 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    memo: {
-      type: DataTypes.TEXT,
-      validate: {
-        len: {
-          args: [0, 200],
-          msg: '备注长度最多为200字符',
-        },
-      },
-    },
   }, {
     timestamps: true,
     paranoid: true, // 软删除

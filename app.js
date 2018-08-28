@@ -18,9 +18,13 @@ const utilRoutes = require('./routes/util');
 
 const app = new Koa();
 
-if (!fs.existsSync(config.uploadsPath)) { // 判断上传文件夹是否存在，不存在则自动添加
+// 判断上传文件夹是否存在，不存在则自动添加
+if (!fs.existsSync(config.uploadsPath)) { 
 	fs.mkdirSync(config.uploadsPath);
 }
+// if (!fs.existsSync(config.logsPath)) {
+//     fs.mkdirSync(config.logsPath);
+// }
 
 app.use(require('koa-static')(config.uploadsPath));
 

@@ -1,5 +1,6 @@
 const Article = require('../../models').article;
 const User = require('../../models').user;
+const Articles_categories = require('../../models').articles_categories;
 const {log} = require('./alogController');
 const {htmlEncode} = require('../../../utils/utils');
 const {setQueryText, setQueryFilter, setParanoid, pagination, storeOrUpdate} = require('../../../utils/IQuery');
@@ -10,7 +11,11 @@ const q = {
         {
             model: User,
             attributes: ['id', 'name', 'niname'],
-        }
+        },
+        {
+            model: Articles_categories,
+            attributes: ['id', 'name'],
+        },
     ],
     raw: true, // 原生查询结果
 };

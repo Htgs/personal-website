@@ -18,11 +18,6 @@ module.exports = {
         type: Sequelize.STRING(30),
         comment: '分类名称',
       },
-      memo: {
-        allowNull: true,
-        type: Sequelize.TEXT,
-        comment: '备注'
-      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

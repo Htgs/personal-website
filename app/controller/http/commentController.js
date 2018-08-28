@@ -35,4 +35,7 @@ module.exports = {
         let comment = await Comment.findById(ctx.params.id);
         ctx.body = await comment.destroy();
     },
+    // 根据文章id来获取评论
+    getCommentByArticleId: async (ctx, next) => {
+    },
 }
