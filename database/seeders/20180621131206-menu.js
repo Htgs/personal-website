@@ -28,13 +28,6 @@ module.exports = {
         updated_at: now,
       },
       {
-        name: 'Admin-Resume',
-        display_name: '简历管理',
-        resource: '/admin/resume',
-        created_at: now,
-        updated_at: now,
-      },
-      {
         name: 'Admin-System',
         display_name: '系统管理',
         created_at: now,
