@@ -1,4 +1,5 @@
 const Comment = require('../../models').comment;
+const Article = require('../../models').article;
 const {setQueryText, setParanoid, pagination, storeOrUpdate} = require('../../../utils/IQuery');
 
 const q = {
@@ -37,5 +38,19 @@ module.exports = {
     },
     // 根据文章id来获取评论
     getCommentByArticleId: async (ctx, next) => {
+        const {article_id} = ctx.params;
+        let query = {
+            ...q,
+            include: [
+                {
+                    model: Article,
+                    attributes: ['id'],
+                    where: {
+                        id: article_id,
+                    },
+                },
+            ],
+        }
+        ctx.body = await pagination('comment', ctx.request, query);
     },
 }
