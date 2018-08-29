@@ -2,7 +2,7 @@ const Article = require('../../models').article;
 const User = require('../../models').user;
 const Articles_categories = require('../../models').articles_categories;
 const {log} = require('./alogController');
-const {htmlEncode} = require('../../../utils/utils');
+const {htmlEncode, uploadFile, deleteFile} = require('../../../utils/utils');
 const {setQueryText, setQueryFilter, setParanoid, pagination, storeOrUpdate} = require('../../../utils/IQuery');
 
 const q = {
@@ -60,5 +60,21 @@ module.exports = {
         let article = await Article.findById(ctx.params.id);
         log(ctx, 'article', 5, `id为${article.id}，名称为${article.title}的文章`);
         ctx.body = await article.destroy();
+    },
+    // 文章图片上传处理
+    uploadImage: async (ctx, next) => {
+        const {fields} = ctx.request;
+        let res = {};
+        for (let i in fields) {
+            const url = await uploadFile(fields[i][0]);
+            res[i] = url;
+        }
+        ctx.body = res;
+    },
+    // 处理需要删除的图片
+    deleteImage: async (ctx, next) => {
+        const {images} = ctx.request.fields;
+        console.log(images);
+        ctx.body = await deleteFile(images);
     },
 }

@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
       validate: {
         len: {
-          args: [5, 50],
-          msg: '文章标题字符范围为5至50',
+          args: [2, 50],
+          msg: '文章标题字符范围为2至50',
         },
       },
     },

@@ -4,7 +4,7 @@ const path = require('path');
 // 文件路径
 const {uploadsPath} = require('../config/config.js');
 
-module.exports = {
+const utils = {
     // 通用公共方法 -----------------------------------------------
 	isString: function(StringToCheck) {
 		return Object.prototype.toString.call(StringToCheck) === '[object String]';
@@ -60,6 +60,27 @@ module.exports = {
         }
     },
     /**
+     * 删除后台上传的文件
+     * @param {String|Array} fileName 
+     */
+    deleteFile(fileName) {
+        try {
+            if (this.isString(fileName)) {
+                fs.unlinkSync(path.join(uploadsPath, fileName));
+                return true;
+            } else if (this.isArray(fileName)) {
+                fileName.forEach(filename => {
+                    fs.unlinkSync(path.join(uploadsPath, filename));
+                });
+                return true;
+            } else {
+                return false;
+            }
+        } catch (err) {
+            throw err;
+        }
+    },
+    /**
      * html文本转义 xss防护
      * @param {String} html 富文本编辑器文本
      */
@@ -73,3 +94,5 @@ module.exports = {
             .replace(/ /g, "&nbsp;");
     },
 };
+
+module.exports = utils;

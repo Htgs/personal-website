@@ -8,8 +8,9 @@ const article = new Router({
     prefix: '/article',
 });
 
-// article
-//     .get('/all', articleController['all']);
+article
+    .post('/image', articleController['uploadImage'])
+    .post('/image/delete', articleController['deleteImage']);
 
 resource(article, articleController, {
     // only: ['index'],
