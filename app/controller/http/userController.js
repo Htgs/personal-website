@@ -1,6 +1,6 @@
 const User = require('../../models').user;
 const {getHash, uploadFile} = require('../../../utils/utils');
-const {setQueryText, setQueryOrder, setParanoid, pagination, storeOrUpdate} = require('../../../utils/IQuery');
+const {setQueryText, setQueryOrder, setParanoid, pagination, storeOrUpdate, commonRecovery} = require('../../../utils/IQuery');
 const {isString, parseModel} = require('../../../utils/utils');
 const jwt = require('jsonwebtoken');
 const {jwtSecret} = require('../../../config/config');
@@ -99,6 +99,23 @@ module.exports = {
         let user = await User.findById(ctx.params.id);
         log(ctx, 'user', 5, `id为${user.id}，用户名为${user.name}的用户`);
         ctx.body = await user.destroy();
+    },
+    recovery: async (ctx, next) => {
+        let user = await User.find({
+            where: {
+                id: ctx.params.id,
+            },
+            paranoid: false,
+        });
+        await commonRecovery('users', ctx.params.id)
+            .then(result => {
+                log(ctx, 'user', 6, `id为${user.id}，用户名为${user.name}的用户`);
+                if (result[0].changedRows > 0) {
+                    ctx.body = 'true';
+                } else {
+                    ctx.body = 'false';
+                }
+            });
     },
     userinfo: async (ctx, next) => {
         let {user} = ctx.state;

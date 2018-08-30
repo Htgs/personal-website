@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       pid: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER,
         comment: '父级评论'
       },
@@ -19,18 +19,22 @@ module.exports = {
         comment: '文章id'
       },
       user_id: {
+        allowNull: true,
         type: Sequelize.INTEGER,
         comment: '用户id'
       },
       user_name: {
+        allowNull: false,
         type: Sequelize.STRING,
         comment: '评论者名称',
       }, 
       user_email: {
+        allowNull: false,
         type: Sequelize.STRING,
         comment: '评论者邮箱',
       },
       user_website: {
+        allowNull: false,
         type: Sequelize.STRING,
         comment: '评论者网站',
       },

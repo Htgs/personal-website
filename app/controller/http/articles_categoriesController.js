@@ -1,6 +1,6 @@
 const Articles_categories = require('../../models').articles_categories;
 const {log} = require('./alogController');
-const {setQueryText, setParanoid, pagination, storeOrUpdate} = require('../../../utils/IQuery');
+const {setQueryText, setParanoid, pagination, storeOrUpdate, commonRecovery} = require('../../../utils/IQuery');
 
 module.exports = {
     index: async (ctx, next) => {
@@ -29,6 +29,23 @@ module.exports = {
         let articles_categories = await Articles_categories.findById(ctx.params.id);
         log(ctx, 'articles_category', 5, `id为${articles_categories.id}，名称为${articles_categories.name}的文章分类`);
         ctx.body = await articles_categories.destroy();
+    },
+    recovery: async (ctx, next) => {
+        let res = await Articles_categories.find({
+            where: {
+                id: ctx.params.id,
+            },
+            paranoid: false,
+        });
+        await commonRecovery('articles_categories', ctx.params.id)
+            .then(result => {
+                log(ctx, 'articles_category', 6, `id为${res.id}，名称为${res.name}的文章分类`);
+                if (result[0].changedRows > 0) {
+                    ctx.body = 'true';
+                } else {
+                    ctx.body = 'false';
+                }
+            });
     },
     all: async (ctx, next) => {
         ctx.body = await Articles_categories.findAll();

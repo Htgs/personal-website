@@ -3,7 +3,7 @@ const User = require('../../models').user;
 const Articles_categories = require('../../models').articles_categories;
 const {log} = require('./alogController');
 const {htmlEncode, uploadFile, deleteFile} = require('../../../utils/utils');
-const {setQueryText, setQueryFilter, setParanoid, pagination, storeOrUpdate} = require('../../../utils/IQuery');
+const {setQueryText, setQueryFilter, setParanoid, pagination, storeOrUpdate, commonRecovery} = require('../../../utils/IQuery');
 
 const q = {
     order: [['id', 'DESC']],
@@ -61,6 +61,26 @@ module.exports = {
         log(ctx, 'article', 5, `id为${article.id}，名称为${article.title}的文章`);
         ctx.body = await article.destroy();
     },
+    recovery: async (ctx, next) => {
+        let article = await Article.find({
+            where: {
+                id: ctx.params.id,
+            },
+            paranoid: false,
+        });
+        await commonRecovery('articles', ctx.params.id)
+            .then(result => {
+                log(ctx, 'article', 6, `id为${article.id}，名称为${article.title}的文章`);
+                if (result[0].changedRows > 0) {
+                    ctx.body = 'true';
+                } else {
+                    ctx.body = 'false';
+                }
+            });
+    },
+    // batchDestroy: async (ctx, next) => {
+    //     console.log(ctx.request.fields);
+    // },
     // 文章图片上传处理
     uploadImage: async (ctx, next) => {
         const {fields} = ctx.request;

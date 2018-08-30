@@ -15,6 +15,8 @@ const operation = {
     3: '新增',
     4: '更新',
     5: '删除',
+    6: '恢复',
+    7: '批量删除',
 };
 
 function setContent(model, type, content) {
@@ -28,6 +30,10 @@ function setContent(model, type, content) {
 module.exports = {
     index: async (ctx, next) => {
         let query = setQueryFilter(ctx, ['model', 'type']);
+        query = {
+            ...query,
+            order: [['id', 'DESC']],
+        }
         ctx.body = await pagination('alog', ctx.request, query);
     },
     /**

@@ -23,6 +23,11 @@ const resource = {
         method: 'delete',
         path: '/:id',
     },
+    // 恢复
+    recovery: {
+        method: 'put',
+        path: '/:id/recovery',
+    }
 };
 module.exports = {
     resource: function(router, controller, filter = {}) {

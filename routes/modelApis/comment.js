@@ -13,7 +13,7 @@ const comment = new Router({
 
 resource(comment, commentController, {
     // only: ['index'],
-    // except: ['show', 'destory'],
+    except: ['show', 'edit', 'update'],
 });
 
 module.exports = comment;

@@ -129,4 +129,13 @@ module.exports = {
         }
         return await res.save();
     },
+    /**
+     * 恢复数据
+     * table: 表名
+     * id: 数据库id值
+     */
+    commonRecovery: (table, id) => {
+        const sequelize = Models.sequelize;
+        return sequelize.query(`UPDATE ${table} SET deleted_at = null WHERE id = ${id}`);
+    },
 };
