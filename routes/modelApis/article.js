@@ -9,6 +9,7 @@ const article = new Router({
 });
 
 article
+    .post('/batch-delete', articleController['batchDestroy'])
     .post('/image', articleController['uploadImage'])
     .post('/image/delete', articleController['deleteImage']);
 

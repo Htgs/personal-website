@@ -7,6 +7,7 @@ const utilController = require('../app/controller/utilController');
 const articleController = require('../app/controller/http/articleController');
 const articles_categoriesController = require('../app/controller/http/articles_categoriesController');
 const commentController = require('../app/controller/http/commentController');
+const meController = require('../app/controller/http/meController');
 
 const web = new Router();
 
@@ -23,7 +24,8 @@ web.get('/home/articles-categories', articles_categoriesController['all']);// �
 web.get('/home/article', articleController['index']);// 获取文章列表
 web.get('/home/article/:id', articleController['show']);// 获取当前文章信息
 web.get('/home/article/:article_id/comment', commentController['getCommentByArticleId']);// 获取当前文章的前10条评论
-web.post('/home/article/:article_id/comment', commentController['store']);
+web.post('/home/article/:article_id/comment', commentController['store']); // 提交评论
+web.get('/home/me/:id', meController['show']); // 获取当前用户的个人介绍。id为user_id
 
 module.exports = function (app) {
     app

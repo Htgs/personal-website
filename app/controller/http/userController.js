@@ -1,9 +1,8 @@
-const User = require('../../models').user;
-const {getHash, uploadFile} = require('../../../utils/utils');
-const {setQueryText, setQueryOrder, setParanoid, pagination, storeOrUpdate, commonRecovery} = require('../../../utils/IQuery');
-const {isString, parseModel} = require('../../../utils/utils');
 const jwt = require('jsonwebtoken');
 const {jwtSecret} = require('../../../config/config');
+const User = require('../../models').user;
+const {getHash, uploadFile, isString, parseModel} = require('../../../utils/utils');
+const {setQueryText, setQueryOrder, setParanoid, pagination, storeOrUpdate, commonRecovery} = require('../../../utils/IQuery');
 const {log} = require('./alogController');
 
 const q = {

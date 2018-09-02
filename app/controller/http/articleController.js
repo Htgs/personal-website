@@ -78,9 +78,19 @@ module.exports = {
                 }
             });
     },
-    // batchDestroy: async (ctx, next) => {
-    //     console.log(ctx.request.fields);
-    // },
+    batchDestroy: async (ctx, next) => {
+        const {ids} = ctx.request.fields;
+        let res = await Article.destroy({
+            where: {
+                id: ids,
+            },
+        });
+        if (res > 0) {
+            ctx.body = 'true';
+        } else {
+            ctx.body = 'false';
+        }
+    },
     // 文章图片上传处理
     uploadImage: async (ctx, next) => {
         const {fields} = ctx.request;

@@ -7,7 +7,7 @@ const models = {
     'article': '文章',
     'comment': '评论',
     'reply': '回复',
-    'resume': '简历',
+    'me': '个人介绍',
 };
 const operation = {
     1: '登录',
