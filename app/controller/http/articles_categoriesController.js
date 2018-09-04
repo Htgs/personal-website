@@ -1,6 +1,7 @@
 const models = require('../../models');
 const sequelize = models.sequelize;
 const Articles_categories = models.articles_categories;
+const Article = models.article;
 const {log} = require('./alogController');
 const {setQueryText, setParanoid, pagination, storeOrUpdate, commonRecovery} = require('../../../utils/IQuery');
 const {transformTime} = require('../../../utils/utils');
@@ -13,7 +14,19 @@ module.exports = {
     },
     store: async (ctx, next) => {
         // TODO 如果存在父分类pid时，需要判断父类是否存在文章。
-        let res = await storeOrUpdate('articles_categories', ctx.request.fields);
+        // let data = ctx.request.fields;
+        // if (data.pid) {
+        //     let flag = Article.find({
+        //         where: {
+        //             category_id: data.pid,
+        //         }
+        //     });
+        //     if (flag) {
+        //         ctx.body = '父分类已经存在文章';
+        //         return;
+        //     }
+        // }
+        let res = await storeOrUpdate('articles_categories', data);
         log(ctx, 'articles_category', 3, `id为${res.id}，名称为${res.name}的文章分类`);
         ctx.body = res;
     },
