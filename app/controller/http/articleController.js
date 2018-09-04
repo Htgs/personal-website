@@ -22,7 +22,7 @@ const q = {
 
 module.exports = {
     index: async (ctx, next) => {
-        let query = setQueryText(ctx, ['title', 'content'], q);
+        let query = setQueryText(ctx, ['title', 'content', 'keywords'], q);
         query = setQueryFilter(ctx, ['category_id', 'is_public'], query);
         query = setParanoid(ctx, query);
         ctx.body = await pagination('article', ctx.request, query);
@@ -104,7 +104,24 @@ module.exports = {
     // 处理需要删除的图片
     deleteImage: async (ctx, next) => {
         const {images} = ctx.request.fields;
-        console.log(images);
         ctx.body = await deleteFile(images);
+    },
+    // 文章归档
+    reference: async (ctx, next) => {
+        ctx.body = await Article.findAll({
+            order: [['created_at', 'DESC']],
+            include: [
+                {
+                    model: Articles_categories,
+                    attributes: ['id', 'name'],
+                },
+            ],
+            raw: true, // 原生查询结果
+        });
+    },
+    keywords: async (ctx, next) => {
+        ctx.body = await Article.findAll({
+            attributes: ['keywords'],
+        });
     },
 }

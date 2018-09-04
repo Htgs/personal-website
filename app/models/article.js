@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
+    keywords: DataTypes.STRING(50),
     content: DataTypes.TEXT,
     is_public: DataTypes.ENUM('0', '1'),
   }, {

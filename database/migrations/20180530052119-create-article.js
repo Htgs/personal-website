@@ -23,6 +23,11 @@ module.exports = {
         type: Sequelize.STRING(50),
         comment: '文章标题'
       },
+      keywords: {
+        allowNull: false,
+        type: Sequelize.STRING(50),
+        comment: '关键词'
+      },
       content: {
         allowNull: false,
         type: Sequelize.TEXT,
