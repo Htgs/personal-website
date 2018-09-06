@@ -119,9 +119,14 @@ module.exports = {
             raw: true, // 原生查询结果
         });
     },
+    // 标签云
     keywords: async (ctx, next) => {
         ctx.body = await Article.findAll({
             attributes: ['keywords'],
         });
     },
+    // 获取全部文章数量
+    count: async (ctx, next) => {
+        ctx.body = await Article.count();
+    }
 }
