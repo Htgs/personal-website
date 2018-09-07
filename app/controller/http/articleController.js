@@ -125,8 +125,4 @@ module.exports = {
             attributes: ['keywords'],
         });
     },
-    // 获取全部文章数量
-    count: async (ctx, next) => {
-        ctx.body = await Article.count();
-    }
 }

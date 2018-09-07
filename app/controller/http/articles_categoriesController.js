@@ -79,6 +79,11 @@ module.exports = {
             WHERE (articles_categories.deleted_at > '${now}' OR articles_categories.deleted_at IS NULL)
             GROUP BY articles.category_id;
         `);
-        ctx.body = res[0];
+        // 获取全部文章数量
+        let article_count = await Article.count();
+        ctx.body = {
+            article_count,
+            articles_categories: res[0],
+        };
     },
 }
