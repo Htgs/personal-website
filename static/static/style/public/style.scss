@@ -1,0 +1,44 @@
+// --------------------------------------- 单组件样式 -----------------------------
+// 通用组件
+
+// components/FormDialog.vue 通用对话框的样式
+.components-dialogs {
+	.dialogs-title {
+		color: $components-btnFontColor;
+		font-size: 18px;
+	}
+	.dialogs-close {
+		color: $components-btnFontColor;
+		&:hover {
+			color: $components-btnHoverBGC;
+		}
+		&:active, &:focus {
+			color: $components-btnClickBGC;
+		}
+	}
+	.el-dialog {
+		min-width: 780px;
+		// max-height: 70%;
+		height: 70%;
+		overflow-y: auto;
+		.el-dialog__body {
+			box-sizing: border-box;
+			min-width: 700px;
+			height: calc(100% - 72px - 77px);
+			.dialog-content{
+				.el-input, label, textarea {
+					font-size: 16px;
+				}
+				.f14 label {
+					font-size: 14px;
+				}
+			}
+		}
+		.dialog-opt{
+			.btn {
+				width: 106px;
+				height: 42px;
+			}
+		}
+	}
+}

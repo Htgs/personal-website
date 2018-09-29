@@ -1,0 +1,9 @@
+@mixin wrapper($lv){
+	.wrap#{$lv} {
+		overflow : hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: $lv;
+		-webkit-box-orient: vertical;
+	}
+}

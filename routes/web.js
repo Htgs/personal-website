@@ -25,9 +25,9 @@ web.get('/home/article', articleController['index']);// 获取文章列表
 web.get('/home/article/:id', articleController['show']);// 获取当前文章信息
 web.get('/home/article/:article_id/comment', commentController['getCommentByArticleId']);// 获取当前文章的前10条评论
 web.post('/home/article/:article_id/comment', commentController['store']); // 提交评论
-web.get('/home/me/:id', meController['show']); // 获取当前用户的个人介绍。id为user_id
+// web.get('/home/me/:id', meController['show']); // 获取当前用户的个人介绍。id为user_id
 web.get('/home/reference', articleController['reference']); // 归档接口
-web.get('/home/keywords', articleController['keywords']); // 词云接口
+// web.get('/home/keywords', articleController['keywords']); // 词云接口
 web.get('/home/articles-categories/articles-count', articles_categoriesController['articlesCount']); // 分类文章统计以及全部文章数量
 
 module.exports = function (app) {

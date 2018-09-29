@@ -1,0 +1,15 @@
+@mixin margins($dir, $width){
+	$md: m;
+	@if $dir == bottom {
+		$md: mb;
+	} @else if $dir == left {
+		$md: ml;
+	} @else if $dir == top {
+		$md: mt;
+	} @else if $dir == right {
+		$md: mr;
+	}
+	.#{$md}-#{$width} {
+		margin-#{$dir}: $width + px;
+	}
+}

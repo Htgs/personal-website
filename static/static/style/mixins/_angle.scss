@@ -1,0 +1,28 @@
+@mixin angle($dir, $width, $color, $disabled: #aaa){
+	.angle-#{$dir} {
+		border: $width solid $color;
+		border-#{$dir}: 0;
+		height: 0;
+		width: 0;
+		@if $dir == bottom {
+			border-color: $color transparent transparent transparent;
+		} @else if $dir == left {
+			border-color: transparent $color transparent transparent;
+		} @else if $dir == top {
+			border-color: transparent transparent $color transparent;
+		} @else if $dir == right {
+			border-color: transparent transparent transparent $color;
+		}
+	}
+	.angle-#{$dir}.disabled {
+		@if $dir == bottom {
+			border-color: $disabled transparent transparent transparent;
+		} @else if $dir == left {
+			border-color: transparent $disabled transparent transparent;
+		} @else if $dir == top {
+			border-color: transparent transparent $disabled transparent;
+		} @else if $dir == right {
+			border-color: transparent transparent transparent $disabled;
+		}
+	}
+}

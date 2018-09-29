@@ -1,0 +1,139 @@
+html, body{
+	height: 100%;
+	width: 100%;
+	font-size: $baseFontSize;
+	overflow-x: hidden;
+}
+
+#{$comonElements} {
+	box-sizing: border-box;
+}
+
+a {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+input[type=text] {
+	-webkit-appearance: none;
+}
+
+
+/*  部分新增的公共 class*/
+.w100 {
+	width: 100%!important;
+}
+.h100 {
+	height: 100%;
+}
+
+.pull-left {
+	float: left;
+}
+.pull-right {
+	float: right;
+}
+
+.txt-l {
+	text-align: left;
+}
+.txt-c {
+	text-align: center;
+}
+.txt-r {
+	text-align: right;
+}
+
+.vam {
+	vertical-align: middle;
+}
+
+.ovh {
+	overflow: hidden;
+}
+
+.ofya {
+	overflow-y: auto;
+}
+
+.block {
+	display: block;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.none {
+	display: none;
+}
+
+.relative {
+	position: relative;
+}
+
+$dirs: bottom, left, top, right;
+@each $dir in $dirs {
+	@include angle($dir, 10px, #fff)
+	@include margins($dir, 5)
+	@include margins($dir, 10)
+	@include margins($dir, 20)
+	@include paddings($dir, 10)
+	@include paddings($dir, 20)
+}
+
+.p-20 {
+	padding: 20px;
+}
+
+.p-10 {
+	padding: 10px;
+}
+
+.p-0 {
+	padding: 0;
+}
+
+@for $i from 12 through 24 {
+	@if $i % 2 == 0 {
+		.fz-#{$i} {
+			font-size: $i + px;
+		}
+	}
+}
+
+/*
+	不换行省略
+ */
+.ellipsis {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.multi-ellipsis {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;  //这里是在第二行有省略号
+	overflow: hidden;
+}
+
+.block-center {
+	display: block;
+	@extend %marginLR;
+}
+
+@include wrapper(2)
+@include wrapper(3)
+
+.no-user-select {
+	-moz-user-select:none;/*火狐*/
+	-webkit-user-select:none;/*webkit浏览器*/
+	-ms-user-select:none;/*IE10*/
+	-khtml-user-select:none;/*早期浏览器*/
+	user-select:none;
+}
+
+.home-view {
+	width: 1140px;
+	@extend %marginLR;
+}

@@ -10,6 +10,7 @@ const helmet = require('koa-helmet');
 const logger = require('koa-logger');
 const koaJwt = require('koa-jwt');
 const koaBetterBody = require('koa-better-body');
+const Router = require('koa-router');
 
 // 本地引用
 const webRoutes = require('./routes/web');
@@ -26,6 +27,7 @@ if (!fs.existsSync(config.uploadsPath)) {
 //     fs.mkdirSync(config.logsPath);
 // }
 
+app.use(require('koa-static')(config.staticPath));
 app.use(require('koa-static')(config.uploadsPath));
 
 app.use(helmet());
@@ -43,9 +45,21 @@ app.use(function(ctx, next){
     });
 });
 
+if (config.isServer) {
+    const page = new Router();
+    page.get('/', async (ctx, next) => {
+        let index = fs.readFileSync('./static/index.html');
+        ctx.set('Content-Type', 'text/html');
+        ctx.body = index;
+    });
+    app
+        .use(page.routes())
+        .use(page.allowedMethods());
+}
+
 webRoutes(app);
 
-app.use(koaJwt({ secret: config.jwtSecret }).unless({ path: [/^\/uploads/] }));
+app.use(koaJwt({ secret: config.jwtSecret }).unless({ path: [/^\/uploads/, /^\//] }));
 
 apiRoutes(app);
 

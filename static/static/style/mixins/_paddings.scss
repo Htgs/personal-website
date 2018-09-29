@@ -1,0 +1,15 @@
+@mixin paddings($dir, $width){
+	$pd: p;
+	@if $dir == bottom {
+		$pd: pb;
+	} @else if $dir == left {
+		$pd: pl;
+	} @else if $dir == top {
+		$pd: pt;
+	} @else if $dir == right {
+		$pd: pr;
+	}
+	.#{$pd}-#{$width} {
+		margin-#{$dir}: $width + px;
+	}
+}
