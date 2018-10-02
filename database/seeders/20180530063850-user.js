@@ -26,7 +26,7 @@ module.exports = {
     return queryInterface.bulkInsert('users', [{
       name: 'admin',
       email: 'admin@qq.com',
-      password: getHash('123456'),
+      password: getHash('admin123456ddd'),
       niname: 'niko',
       realname: '尼克',
       gender: '0',
