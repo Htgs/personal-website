@@ -26,7 +26,7 @@ module.exports = {
         //         return;
         //     }
         // }
-        let res = await storeOrUpdate('articles_categories', data);
+        let res = await storeOrUpdate('articles_categories', ctx.request.fields);
         log(ctx, 'articles_category', 3, `id为${res.id}，名称为${res.name}的文章分类`);
         ctx.body = res;
     },
